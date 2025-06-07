@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>全国景区数据大屏</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>🌍 全国景区数据概览</h1>
+
+    <div class="charts">
+        <div id="region-chart" class="chart">区域分布图</div>
+        <div id="ticket-price-chart" class="chart">门票价格分布</div>
+        <div id="highest-rated-chart" class="chart">高评分景区Top5</div>
+        <div id="map-chart" class="chart">地图展示</div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
