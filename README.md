@@ -240,7 +240,7 @@ logo.png：项目的 logo 图片，用于在页面中展示。
 本项目使用了一些外部的 JavaScript 库和 API，这些依赖通过 CDN 引入，无需额外安装。具体依赖如下：
 
 Font Awesome：用于显示图标，引入地址：https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
-百度地图 API：用于展示地图，引入地址：https://api.map.baidu.com/api?v=3.0&ak=shMcR5luvatxcVQubIIpSkTT8iugO89x
+百度地图 API：用于展示地图，引入地址：https://api.map.baidu.com/api?v=3.0&ak= 自己的ak
 ECharts：用于绘制图表，引入地址：https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js 和 https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/extension/bmap.min.js
 Particles.js：用于创建粒子背景，引入地址：https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js
 六、注意事项
