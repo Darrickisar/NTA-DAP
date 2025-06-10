@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>全国景区数据分析平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="css/particles.css"/>
+    <script src="https://api.map.baidu.com/api?v=3.0&ak=shMcR5luvatxcVQubIIpSkTT8iugO89x"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/extension/bmap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+<div id="particles-js"></div>
+<div class="container">
+    <header class="header">
+        <h1><i class="fas fa-chart-line"></i> 全国景区数据分析平台</h1>
+        <p>实时监测全国景区数据，提供多维度可视化分析，助力旅游决策与管理</p>
+        <div class="province-info" id="provinceInfo">
+            <span id="selectedProvince">浙江省</span> 景区数据已筛选
+            <i class="fas fa-times close" onclick="clearProvinceSelection()"></i>
+        </div>
+    </header>
+    
+    <div class="controls">
+        <div class="filter-section">
+            <div class="filter-header">
+                <i class="fas fa-filter"></i>
+                <span>数据筛选</span>
+            </div>
+            <div class="filter-group">
+                <div class="filter-item">
+                    <label class="filter-label">区域范围：</label>
+                    <select id="regionFilter">
+                        <option value="all">全国范围</option>
+                        <option value="east">东部地区</option>
+                        <option value="west">西部地区</option>
+                        <option value="central">中部地区</option>
+                        <option value="northeast">东北地区</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="filter-label">景区类型：</label>
+                    <select id="categoryFilter">
+                        <option value="all">所有类型</option>
+                        <option value="nature">自然风光</option>
+                        <option value="culture">文化古迹</option>
+                        <option value="amusement">主题公园</option>
+                        <option value="resort">度假区</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-buttons">
+                <button class="primary-btn" id="applyFilter">
+                    <i class="fas fa-sync-alt"></i> 应用筛选
+                </button>
+                <button id="resetFilter">
+                    <i class="fas fa-redo"></i> 重置
+                </button>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-label">景区总数</span>
+                <span class="stat-value" id="totalSpots">80,910</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">平均票价</span>
+                <span class="stat-value" id="avgPrice">¥58.20</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">平均评分</span>
+                <span class="stat-value" id="avgRating">4.27</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard">
+        <!-- 左侧：大区景区数量 -->
+        <div class="card">
+            <h2><i class="fas fa-chart-bar"></i> 大区景区数量</h2>
+            <div class="chart" id="regionBarChart">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div>正在加载区域数据...</div>
+                    <div class="progress-bar">
+                        <div class="progress" id="regionProgress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 中间：景区分布热力图 -->
+        <div class="card">
+            <h2><i class="fas fa-map-marked-alt"></i> 景区分布热力图</h2>
+            <div class="chart" id="mapChart">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div>正在加载地图数据...</div>
+                    <div class="progress-bar">
+                        <div class="progress" id="mapProgress"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="lazy-load-info" id="lazyLoadInfo" style="display: none;">
+                <i class="fas fa-info-circle"></i>
+                <span>正在加载更多景区数据...</span>
+                <div class="spinner" style="width: 20px; height: 20px; border-width: 3px;"></div>
+            </div>
+        </div>
+        
+        <!-- 右侧：上下两个图表 -->
+        <div class="double-card">
+            <!-- 省份景区数量 -->
+            <div class="half-card">
+                <h2><i class="fas fa-map-marker-alt"></i> 省份景区数量</h2>
+                <div class="half-chart" id="provinceBarChart">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <div>请选择一个大区</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 景区等级分布 -->
+            <div class="half-card">
+                <h2><i class="fas fa-chart-pie"></i> 景区等级分布</h2>
+                <div class="half-chart" id="gradePieChart">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <div>请选择一个省份</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>© 2025 景区数据分析平台 | 数据更新时间: <span id="updateTime"></span> | 数据来源: <a href="#">去哪儿网</a></p>
+    </footer>
+</div>
+
+<!-- 数据加载状态显示 -->
+<div class="data-status" id="dataStatus">
+    数据加载状态: 初始化中...
+</div>
+
+<script src="js/particles-config.js"></script>
+<script src="js/chart-region-bar.js"></script>
+<script src="js/chart-map.js"></script>
+<script src="js/chart-province-bar.js"></script>
+<script src="js/chart-grade-pie.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
