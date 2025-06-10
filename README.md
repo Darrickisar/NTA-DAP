@@ -1,4 +1,4 @@
-# 全国景区数据分析平台 - 多文件拆分方案
+# 全国景区数据分析平台
 
 ## 一、项目背景
 本项目旨在实时监测全国景区数据，提供多维度可视化分析，助力旅游决策与管理。
@@ -17,8 +17,6 @@
 │   ├── chart-map.js
 │   ├── chart-province-bar.js
 │   └── chart-grade-pie.js
-└── assets/
-    └── logo.png
 ```
 
 ## 三、文件功能
@@ -245,9 +243,6 @@ function updateGradePieChart(province) {
     });
 }
 ```
-
-### 4. assets 文件夹
-- **logo.png**：项目的 logo 图片，用于在页面中展示。
 
 ## 四、使用方法
 ### 1. 打开项目
