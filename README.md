@@ -1,270 +1,89 @@
-# 全国景区数据分析平台
+# 全国景区数据可视化平台 README.md
 
-## 一、项目背景
-本项目旨在实时监测全国景区数据，提供多维度可视化分析，助力旅游决策与管理。
+## 项目概述  
+全国景区数据可视化平台基于 Flask 后端和现代前端技术，实现全国 34 个省级行政区 80,910 个景区的多维度数据展示与互动分析[1].  
 
-## 二、项目结构
-```
-项目结构：
-├── index.html
-├── css/
-│   ├── styles.css
-│   └── particles.css
-├── js/
-│   ├── main.js
-│   ├── particles-config.js
-│   ├── chart-region-bar.js
-│   ├── chart-map.js
-│   ├── chart-province-bar.js
-│   └── chart-grade-pie.js
-```
+## 核心功能  
+- 大区景区数量柱状图，支持点击切换省份数据[2].  
+- 全国景区地理分布热力图，支持地图懒加载和智能定位[2].  
+- 省份景区数量柱状图和景区等级分布饼图动态联动[2].  
+- 自定义粒子背景动画和响应式界面设计[3].  
+- 多维度筛选（区域范围、景区类型）及实时数据更新[1].  
 
-## 三、文件功能
-### 1. index.html
-- **功能**：作为项目的主页面，包含了整个平台的 HTML 结构。它引入了各种外部资源，如 CSS 样式表、JavaScript 库和 API，同时定义了页面的布局和元素，包括头部信息、数据筛选控件、统计信息、图表展示区域和页脚等。
-- **代码片段**：
-```html
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>全国景区数据分析平台</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <link rel="stylesheet" href="css/styles.css"/>
-    <link rel="stylesheet" href="css/particles.css"/>
-    <script src="https://api.map.baidu.com/api?v=3.0&ak=shMcR5luvatxcVQubIIpSkTT8iugO89x"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/extension/bmap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-</head>
-<body>
-    <!-- 页面内容 -->
-</body>
-</html>
-```
+## 技术架构  
+- 后端：Flask 提供 RESTful API，连接 MySQL 数据库，返回 JSON 接口[1][4].  
+- 前端：原生 JavaScript + ECharts 4.9.0 渲染交互式可视化组件[2].  
+- 地图：百度地图 API (BMap) 实现景区点位展示与智能定位[2].  
+- 动画：Particles.js 驱动炫酷粒子背景效果[3].  
+- 样式：CSS3 响应式布局与渐变文本效果[5].  
 
-### 2. css 文件夹
-#### styles.css
-- **功能**：定义了整个平台的主样式，包括页面的背景、字体、布局、控件样式、图表容器样式等。通过媒体查询，实现了不同屏幕尺寸下的响应式布局。
-- **代码片段**：
-```css
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-}
+## 环境与依赖  
+- Python 3.8+，Flask 2.x，mysql-connector-python[1][4]  
+- MySQL 5.7+ 或以上数据库[4]  
+- 前端：ECharts 4.9.0，Particles.js，百度地图 API[2][3]  
+- 浏览器：Chrome 90+，Firefox 88+，Safari 14+[5]  
 
-body {
-    background: linear-gradient(135deg, #0d1b3a, #152642);
-    color: #fff;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
+## 安装与运行  
+
+```bash
+# 克隆仓库
+git clone https://github.com/yourusername/tourism-dashboard.git  
+cd tourism-dashboard  
+
+# 后端依赖安装
+pip install -r requirements.txt  
+
+# 数据库配置
+# 修改 server.py 中 DB_CONFIG 为实际 MySQL 连接信息[4]
+
+# 启动后端服务
+python server.py  
+
+# 访问前端页面
+# 打开浏览器访问 http://127.0.0.1:5000/  
 ```
 
-#### particles.css
-- **功能**：专门用于设置粒子背景的样式，将粒子背景固定在页面的底层。
-- **代码片段**：
-```css
-#particles-js {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
+## 项目结构  
+
+```
+project-root/
+├─ server.py                 # Flask 后端主程序[1]
+├─ static/                   
+│  ├─ index.html             # 前端主页面[2]
+│  ├─ css/                   
+│  │  ├─ particles.css       # 粒子背景样式定义[3]
+│  │  └─ styles.css          # 全局样式表[5]
+│  └─ js/                    
+│     ├─ main.js             # 前端核心脚本[2]
+│     ├─ particles-config.js # 粒子动画参数配置[3]
+│     ├─ chart-map.js        # 地图渲染与懒加载功能[2]
+│     ├─ chart-region-bar.js # 大区柱状图渲染与事件联动[2]
+│     ├─ chart-province-bar.js # 省份柱状图渲染与点击交互[2]
+│     └─ chart-grade-pie.js  # 景区等级分布饼图渲染[2]
+└─ README.md                 # 项目说明文档  
 ```
 
-### 3. js 文件夹
-#### main.js
-- **功能**：是整个项目的核心逻辑文件，负责初始化平台，包括初始化粒子背景、图表，设置筛选按钮事件，处理窗口大小变化和滚动事件，生成模拟数据，更新所有图表数据和时间等。
-- **代码片段**：
-```javascript
-// 初始化函数
-function init() {
-    updateDataStatus("正在初始化平台...");
-    // 初始化粒子背景
-    initParticles();
-    // 初始化所有图表
-    initCharts();
-    // 设置筛选按钮事件
-    document.getElementById('applyFilter').addEventListener('click', function() {
-        simulateLoading();
-        setTimeout(updateAllCharts, 1500);
-    });
-    // 其他逻辑...
-}
-```
+## API 接口  
 
-#### particles-config.js
-- **功能**：用于初始化粒子背景，配置粒子的数量、颜色、形状、运动等属性。
-- **代码片段**：
-```javascript
-// 初始化粒子背景
-function initParticles() {
-    particlesJS('particles-js', {
-        particles: {
-            number: { value: 120 },
-            color: { value: ["#40e0d0", "#a0d2ff", "#ff9a76"] },
-            shape: { type: "circle" },
-            // 其他属性...
-        },
-        interactivity: {
-            detect_on: "canvas",
-            events: {
-                onhover: { enable: true, mode: "grab" },
-                onclick: { enable: true, mode: "push" },
-                resize: true
-            },
-            // 其他属性...
-        },
-        retina_detect: true
-    });
-}
-```
+| 接口                   | 方法  | 说明                             |
+|-----------------------|------|----------------------------------|
+| `/api/regions`        | GET  | 返回大区名称、编码与景区数量     |
+| `/api/spots`          | GET  | 返回景区名称、坐标、价格、评分   |
+| `/api/province-stats` | GET  | 返回各省份景区数量统计           |
+| `/api/grade-stats`    | GET  | 返回全国及各省份景区等级分布     |
 
-#### chart-region-bar.js
-- **功能**：负责更新大区景区数量的柱状图，包括设置图表的选项、添加点击事件等。
-- **代码片段**：
-```javascript
-// 更新大区柱状图
-function updateRegionBarChart() {
-    const regions = regionData.map(item => item.region);
-    const counts = regionData.map(item => item.count);
-    // 设置图表选项
-    charts.regionBarChart.setOption({
-        tooltip: { 
-            trigger: 'axis',
-            formatter: '{b}: {c} 个景区'
-        },
-        // 其他选项...
-    });
-    // 添加柱状图点击事件
-    charts.regionBarChart.off('click');
-    charts.regionBarChart.on('click', function(params) {
-        selectedRegion = regionData[params.dataIndex].code;
-        // 其他逻辑...
-    });
-}
-```
+所有接口均返回 JSON，字符编码 UTF-8[1].  
 
-#### chart-map.js
-- **功能**：更新地图热力图，将景区数据转换为适合地图展示的格式，并设置地图的样式和交互效果。
-- **代码片段**：
-```javascript
-// 更新地图热力图
-function updateMapChart(data) {
-    // 转换数据格式
-    const mapData = data.map(item => ({
-        name: item.name,
-        value: [item.lng, item.lat, 1],
-        province: item.province
-    }));
-    charts.mapChart.setOption({
-        tooltip: {
-            trigger: 'item',
-            formatter: function(params) {
-                return `${params.data.name}<br>${params.data.province}`;
-            }
-        },
-        // 其他选项...
-    });
-    // 获取百度地图实例
-    setTimeout(() => {
-        if (charts.mapChart) {
-            const bmap = charts.mapChart.getModel().getComponent('bmap');
-            if (bmap) {
-                bmapInstance = bmap.getBMap();
-                // 移动地图到指定位置...
-            }
-        }
-    }, 500);
-}
-```
+## 数据来源  
+- 景区数据采集自去哪儿网和百度地图行政区划 API，通过 Python 分布式爬虫存入 MySQL[6].  
+- 地理坐标、门票价格、评分等信息来源于官方开放 API 与第三方平台[6].  
 
-#### chart-province-bar.js
-- **功能**：更新省份景区数量的柱状图，根据选中的大区筛选省份数据，并添加点击事件。
-- **代码片段**：
-```javascript
-// 更新省份柱状图
-function updateProvinceBarChart(regionCode) {
-    // 获取该大区下的所有省份
-    const provincesInRegion = regionMapping[regionCode] || [];
-    // 使用真实数据
-    const provinceData = [];
-    provincesInRegion.forEach(province => {
-        if (provinceTotalSpots.hasOwnProperty(province)) {
-            provinceData.push({
-                province: province,
-                count: provinceTotalSpots[province]
-            });
-        }
-    });
-    // 按景区数量排序
-    provinceData.sort((a, b) => b.count - a.count);
-    // 设置图表选项
-    charts.provinceBarChart.setOption({
-        tooltip: { 
-            trigger: 'axis',
-            formatter: '{b}: {c} 个景区'
-        },
-        // 其他选项...
-    });
-    // 添加柱状图点击事件
-    charts.provinceBarChart.off('click');
-    charts.provinceBarChart.on('click', function(params) {
-        selectedProvince = provinces[params.dataIndex];
-        // 其他逻辑...
-    });
-}
-```
+## 自定义配置  
+- **DB_CONFIG**：修改 `server.py` 中数据库连接信息[4].  
+- **Particles**：可在 `particles-config.js` 中调整粒子数量、颜色与运动参数[3].  
+- **懒加载**：可在 `main.js` 中修改 `LAZY_LOAD_BATCH_SIZE` 与 `LAZY_LOAD_DELAY`[2].  
 
-#### chart-grade-pie.js
-- **功能**：更新景区等级分布的饼图，根据选中的省份获取相应的等级分布数据。
-- **代码片段**：
-```javascript
-// 更新景区等级分布饼图
-function updateGradePieChart(province) {
-    // 获取该省份的等级分布数据
-    let gradeData = provinceGradeData[province];
-    // 如果省份没有单独数据，使用全国数据
-    if (!gradeData) {
-        gradeData = nationalGradeData;
-    }
-    charts.gradePieChart.setOption({
-        tooltip: {
-            trigger: 'item',
-            formatter: '{a} <br/>{b}: {c} ({d}%)'
-        },
-        // 其他选项...
-    });
-}
-```
+## 许可证  
+本项目基于 MIT 协议开源，见 [LICENSE](LICENSE)[5].  
 
-## 四、使用方法
-### 1. 打开项目
-将项目文件下载到本地，确保所有文件的目录结构保持不变。
-### 2. 运行项目
-在浏览器中打开 `index.html` 文件，即可看到全国景区数据分析平台的界面。
-### 3. 数据筛选
-- 在页面的筛选区域，可以选择区域范围和景区类型进行数据筛选。
-- 点击“应用筛选”按钮，平台会模拟加载效果，并更新所有图表数据。
-- 点击“重置”按钮，可以恢复默认的筛选条件。
-### 4. 图表交互
-- 点击大区柱状图的柱子，可以选中相应的大区，同时更新省份柱状图和地图的显示。
-- 点击省份柱状图的柱子，可以选中相应的省份，同时更新景区等级分布饼图和地图的显示。
-
-## 五、安装依赖
-本项目使用了一些外部的 JavaScript 库和 API，这些依赖通过 CDN 引入，无需额外安装。具体依赖如下：
-- **Font Awesome**：用于显示图标，引入地址：`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css`
-- **百度地图 API**：用于展示地图，引入地址：`https://api.map.baidu.com/api?v=3.0&ak=自己的ak`
-- **ECharts**：用于绘制图表，引入地址：`https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js` 和 `https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/extension/bmap.min.js`
-- **Particles.js**：用于创建粒子背景，引入地址：`https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js`
-
-## 六、注意事项
-- 请确保网络连接正常，以便正确加载外部资源。
-- 建议使用 Chrome 浏览器获得最佳体验。
-- 百度地图 API 的 `ak` 可能需要根据实际情况进行替换。
+---
