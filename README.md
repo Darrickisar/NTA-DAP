@@ -18,10 +18,10 @@
 - 样式：CSS3 响应式布局与渐变文本效果.  
 
 ## 环境与依赖  
-- Python 3.8+，Flask 2.x，mysql-connector-python  
-- MySQL 5.7+ 或以上数据库  
-- 前端：ECharts 4.9.0，Particles.js，百度地图 API  
-- 浏览器：Chrome 90+，Firefox 88+，Safari 14+  
+- Python 3.13，Flask 3.1.1，mysql-connector-python  
+- MySQL 9.3  
+- 前端：ECharts 5.4.3，Particles.js，百度地图 API  
+- 浏览器：Chrome 37.0.7151.104  
 
 ## 安装与运行  
 
